@@ -119,6 +119,65 @@ function setupVideoCarouselAutoplay() {
     });
 }
 
+// Keep experiment demos playing while visible, without overriding a manual pause.
+function setupExperimentVideoAutoplay() {
+    const videos = document.querySelectorAll('#experiments video');
+    if (!videos.length || !('IntersectionObserver' in window)) return;
+
+    const playbackStates = new Map();
+
+    function updatePlayback(video) {
+        const state = playbackStates.get(video);
+        if (state.visible && !document.hidden && !state.manuallyPaused) {
+            if (video.paused) {
+                // Native controls remain available if the browser blocks autoplay.
+                video.play().catch(() => {});
+            }
+        } else if (!video.paused) {
+            state.automaticPauses += 1;
+            video.pause();
+        }
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            playbackStates.get(entry.target).visible = entry.isIntersecting && entry.intersectionRatio >= 0.35;
+            updatePlayback(entry.target);
+        });
+    }, { threshold: 0.35 });
+
+    videos.forEach((video) => {
+        const state = { visible: false, manuallyPaused: false, automaticPauses: 0 };
+        playbackStates.set(video, state);
+        video.muted = true;
+        video.loop = true;
+        video.playsInline = true;
+
+        video.addEventListener('pause', () => {
+            if (state.automaticPauses > 0) {
+                state.automaticPauses -= 1;
+            } else if (!video.ended) {
+                state.manuallyPaused = true;
+            }
+        });
+        video.addEventListener('play', () => {
+            state.manuallyPaused = false;
+            updatePlayback(video);
+        });
+        observer.observe(video);
+    });
+
+    document.addEventListener('visibilitychange', () => {
+        videos.forEach(updatePlayback);
+    });
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupExperimentVideoAutoplay);
+} else {
+    setupExperimentVideoAutoplay();
+}
+
 $(document).ready(function() {
     // Check for click events on the navbar burger icon
 

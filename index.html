@@ -21,7 +21,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
     <link rel="stylesheet" href="static/css/bulma.min.css" />
-    <link rel="stylesheet" href="static/css/index.css" />
+    <link rel="stylesheet" href="static/css/index.css?v=20260919-videos-wide" />
     <link rel="stylesheet" href="static/css/fontawesome.all.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css" />
 
@@ -29,7 +29,7 @@
     <script defer src="static/js/fontawesome.all.min.js"></script>
     <script defer src="static/js/bulma-carousel.min.js"></script>
     <script defer src="static/js/bulma-slider.min.js"></script>
-    <script defer src="static/js/index.js"></script>
+    <script defer src="static/js/index.js?v=20260919-autoplay"></script>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-MLNZWTGKDK"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -64,16 +64,20 @@
               <!-- Title -->
                 <div class="title-wide">
                   <h1 class="title is-1 publication-title">
-                    Sparse Feature Unlearning Mitigates State Hallucination<br>in Vision-Language-Action Models
+                    <span class="publication-title-line">Sparse Feature Policy Unlearning Mitigates State Hallucination</span>
+                    <span class="publication-title-line">in Vision-Language-Action Models</span>
                   </h1>
                 </div>
+                <p class="publication-method">
+                  <strong>SOUL</strong> — <strong>S</strong>parse feature p<strong>O</strong>licy <strong>U</strong>n<strong>L</strong>earning
+                </p>
               <!-- Author -->
                 <div class="is-size-5 publication-authors">
-                  <span class="author-block"><a href="https://jiho-lee-page.github.io/" target="_blank">Jiho Lee</a><sup>1</sup>,</span>
-                  <span class="author-block"><a href="https://taekyungkim918.github.io/" target="_blank">Taekyung Kim</a><sup>2</sup>,</span>
-                  <span class="author-block"><a href="https://scholar.google.com/citations?user=IoJi1pEAAAAJ&hl=ko&oi=sra" target="_blank">Heayoun Choi</a><sup>1</sup>,</span>
+                  <span class="author-block"><a href="https://jiho-lee-page2.github.io/" target="_blank">Jiho Lee</a><sup>1</sup>,</span>
                   <span class="author-block"><a href="https://jeongeun-park-page.github.io/" target="_blank">Jeongeun Park</a><sup>2</sup>,</span>
-                  <span class="author-block"><a href="https://airlab.cau.ac.kr/members/professor/" target="_blank">Eunwoo Kim</a><sup>1</sup></span>
+                  <span class="author-block"><a href="https://scholar.google.com/citations?user=IoJi1pEAAAAJ&hl=ko&oi=sra" target="_blank">Heayoun Choi</a><sup>1</sup>,</span>
+                  <span class="author-block"><a href="https://taekyungkim918.github.io/" target="_blank">Taekyung Kim</a><sup>2,*</sup>,</span>
+                  <span class="author-block"><a href="https://airlab.cau.ac.kr/members/professor/" target="_blank">Eunwoo Kim</a><sup>1,*</sup></span>
                 </div>
 
                 <!-- Affiliation -->
@@ -84,6 +88,7 @@
                   <span class="author-block">
                     <span class="affiliation-marker naver">▶</span><sup>2</sup> NAVER AI Lab
                   </span>
+                  <p class="is-size-6"><sup>*</sup> Corresponding authors</p>
                 </div>
 
               <!-- Paper link -->
@@ -117,8 +122,9 @@
                 <div class="summary-box">
                   <span class="summary-label">In brief</span>
                   <p>
-                    <b>Region-guided feature policy unlearning</b> identifies hallucination-associated internal features in VLAs and
-                    selectively suppresses them to reduce <b>state hallucination</b> while preserving normal manipulation capability.
+                    We identify <b>sparse features</b> associated with <b>state hallucination in VLAs</b>.<br>
+                    Building on this analysis, <b>SOUL</b> selectively unlearns hallucination-associated policy knowledge
+                    <br>while preserving successful manipulation behaviors.
                   </p>
 
                   <div class="summary-figure-card">
@@ -153,20 +159,24 @@
             <h2 class="title is-3">Abstract</h2>
             <div class="content has-text-justified readable-content">
               <p>
-                We study a critical failure mode in VLAs, which we refer to as <b>state hallucination</b>, the phenomenon in which a VLA generates actions based on an incorrect implicit belief about the robot-object state.
-                We show that state hallucination is a primary cause of task failures, occurring in 70% of rollouts on LIBERO-Plus.
+                We study <b>state hallucination</b>, a recurring failure pattern in which a VLA continues acting as if an unrealized robot-object state had been achieved.
               </p>
 
               <p>
-                To diagnose this failure mode, we find that state hallucination coincides with weakened attention on task-relevant visual regions, and a mechanistic interpretation via sparse autoencoders reveals that hallucination-relevant sparse features emerge and are activated when these failures occur.
-                Based on this, we propose <b>region-guided feature policy unlearning</b>, which selectively suppresses hallucination-associated region-features while retaining features necessary for successful execution.
+                Our analyses find that state hallucination coincides with weakened attention to task-relevant visual regions, and a mechanistic interpretation via sparse autoencoders reveals that hallucination-associated sparse features are activated when these failures occur.
+                Based on this analysis, we propose <b>SOUL</b> (Sparse feature pOlicy UnLearning), which selectively unlearns policy knowledge associated with state hallucination behaviors, where sparse features identified from hallucination failures and successful behaviors serve as explicit forgetting and retention targets, respectively.
               </p>
 
               <p>
-                Experiments in simulated and real-world environments show that our method substantially reduces harmful hallucination and improves task success rates without compromising the original capability.
-                These results suggest that mechanistic feature analysis provides a practical basis for selectively unlearning undesirable behaviors in embodied foundation models.
+                Experiments across VLA architectures in simulated and real-world environments show that our method substantially reduces hallucinated failures and improves task success without substantially compromising the existing manipulation capabilities.
+                These results suggest that interpretable feature analysis provides a practical basis for selectively modifying undesirable knowledge in robot policies.
               </p>
             </div>
+
+
+
+
+
 
             <div class="performance-cards">
               <div class="performance-card hallucination-card">
@@ -176,8 +186,8 @@
               </div>
 
               <div class="performance-card success-card">
-                <div class="performance-value">3.3×</div>
-                <div class="performance-title">Clean success improved</div>
+                <div class="performance-value">1.9×</div>
+                <div class="performance-title">Success improved</div>
                 <div class="performance-subtitle">after unlearning</div>
               </div>
             </div>
@@ -269,8 +279,8 @@
             <span class="method-label">Key idea</span>
             <p>
               <b>Discover sparse features</b> associated
-              with hallucination and clean execution, then <b>selectively suppress</b> hallucination
-              features while preserving clean-relevant ones.
+              with hallucination and success execution,<br>then <b>selectively suppress</b> hallucination
+              features while preserving sucess-relevant ones.
             </p>
           </div>
 
@@ -302,7 +312,7 @@
                     <b>1. Feature Discovery.</b>
                     <span class="inline-step">1</span> Decompose VLA representations into sparse features,
                     <span class="inline-step">2</span> analyze their activations over semantic visual regions, and
-                    <span class="inline-step">3</span> discover hallucination-relevant and clean-relevant features.
+                    <span class="inline-step">3</span> discover hallucination-relevant and success-relevant features.
                   </p>
                 </div>
 
@@ -322,7 +332,7 @@
                   <p>
                     <b>2. Feature Unlearning.</b>
                     <span class="inline-step">4</span> Select forget and retain region-feature pairs, and
-                    <span class="inline-step">5</span> update the policy to suppress hallucination features while preserving clean features.
+                    <span class="inline-step">5</span> update the policy to suppress hallucination features while preserving success features.
                   </p>
                 </div>
 
@@ -334,23 +344,47 @@
 
       <!-- Experiments -->
       <section class="section section-light" id="experiments">
-        <div class="container is-max-desktop">
+        <div class="container">
           <h2 class="title is-3 has-text-centered">Experiment videos</h2>
 
           <div class="experiment-video">
             <h3 class="experiment-title has-text-centered">Benchmark</h3>
-            <video controls muted loop preload="metadata" width="100%">
-              <source src="./assets/hallucination-unlearning_bench.mp4" type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
+            <div class="experiment-video-grid">
+              <figure class="experiment-video-card">
+                <video controls muted loop playsinline preload="metadata" aria-label="OpenVLA on LIBERO-Plus">
+                  <source src="./assets/hallucination-unlearning_bench.mp4" type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+                <figcaption>OpenVLA on LIBERO-Plus</figcaption>
+              </figure>
+              <figure class="experiment-video-card">
+                <video controls muted loop playsinline preload="metadata" aria-label="π0.5 on RoboCasa">
+                  <source src="./assets/hallucination-unlearning_bench2.mp4" type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+                <figcaption>π<sub>0.5</sub> on RoboCasa</figcaption>
+              </figure>
+            </div>
           </div>
 
           <div class="experiment-video">
             <h3 class="experiment-title has-text-centered">Real-world</h3>
-            <video controls muted loop preload="metadata" width="100%">
-              <source src="./assets/hallucination-unlearning_real.mp4" type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
+            <div class="experiment-video-grid">
+              <figure class="experiment-video-card">
+                <video controls muted loop playsinline preload="metadata" aria-label="OpenVLA real-world experiments">
+                  <source src="./assets/hallucination-unlearning_real.mp4" type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+                <figcaption>OpenVLA</figcaption>
+              </figure>
+              <figure class="experiment-video-card">
+                <video controls muted loop playsinline preload="metadata" aria-label="π0.5 real-world experiments">
+                  <source src="./assets/hallucination-unlearning_real2.mp4" type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+                <figcaption>π<sub>0.5</sub></figcaption>
+              </figure>
+            </div>
           </div>
 
         </div>
