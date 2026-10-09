@@ -158,6 +158,10 @@
   .affiliation-marker.cau {
     color: var(--primary-color);
   }
+
+  .affiliation-marker.gatech {
+    color: #8f6b00;
+  }
   
   .affiliation-marker.naver {
     color: #59f359;
@@ -977,4 +981,3 @@
       justify-content: center;
     }
   }
-  
